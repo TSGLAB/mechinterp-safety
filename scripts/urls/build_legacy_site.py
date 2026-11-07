@@ -36,9 +36,9 @@ FALLBACK = """<!doctype html>
 <title>This site has moved</title>
 <meta name="robots" content="noindex">
 <script>
-  // Any other old path: same path at the new address.
-  var p = location.pathname.indexOf({old_js}) === 0 ? location.pathname.slice({old_len}) : "";
-  location.replace({new_js} + p + location.search + location.hash);
+  // Every page the old site published has its own redirect page, so anything that lands here
+  // never existed: send it to the new homepage rather than to a 404 on the new site.
+  location.replace({new_js});
 </script>
 </head><body><h1>This site has moved</h1>
 <p>The interactive handbook is now at <a href="{new}">{new}</a>.</p></body></html>
