@@ -123,11 +123,24 @@ def size_of(model):
     return None
 
 
-def compute_estimate(models, code):
+def stated_gpu_gb(mds):
+    """GPU memory the notebook itself states it needs, e.g. "expect **~32 GB of GPU memory**".
+    Preferred over the model-size estimate, which cannot see models loaded through helper code
+    (e.g. an explainer checkpoint passed to a loader function alongside the target model)."""
+    text = re.sub(r"[*>`]", "", "\n".join(mds))
+    found = [int(n) for n in re.findall(r"~\s*(\d+)\s*GB of GPU memory", text)]
+    return max(found) if found else None
+
+
+def compute_estimate(models, code, stated_gb=None):
     # Models a notebook loads are usually in memory together (e.g. a base and a chat model for diffing,
     # or a verbaliser, a reconstructor and the base model for NLAs), so the tier follows their combined size.
     sizes = [s for s in (size_of(m) for m in models) if s]
     biggest = round(sum(sizes), 3) if sizes else 0
+    if stated_gb:
+        # more than an L4's 24 GB means an A100-class (>= 40 GB) GPU
+        return {"tier": "large-gpu" if stated_gb > 24 else "gpu", "largest_model_b": biggest or None,
+                "stated_gpu_gb": stated_gb, "basis": f"Stated in the notebook: about {stated_gb} GB of GPU memory"}
     if not models:
         tier = "cpu"
     elif biggest <= 1.0:
@@ -214,8 +227,11 @@ def main():
         # repository (Colab opens the notebook alone), or if the notebook does not fetch them itself
         # (pip install git+… or git clone, as the Jacobian-lens and NLA notebooks do).
         fetched = bool(re.search(r"pip install[^\n]*git\+https|git clone|[\"']git[\"'],\s*[\"']clone[\"']", strip_comments(code)))
+        # A notebook that clones this repository itself (as privileged access does) has its neighbours on Colab.
+        clones_self = fetched and GH.split("/")[1] in strip_comments(code)
+        beside = lambda m: (p.parent / m).exists() or (p.parent / f"{m}.py").exists()
         local = sorted(m for m in set(imps) & LOCAL_OR_UNPUBLISHED
-                       if (p.parent / m).exists() or (p.parent / f"{m}.py").exists() or not fetched)
+                       if (beside(m) and not clones_self) or (not beside(m) and not fetched))
         has_outputs = any(c.get("outputs") for c in nb["cells"] if c["cell_type"] == "code")
         colab = f"https://colab.research.google.com/github/{GH}/blob/{a.branch}/{rel}"
         src = f"https://github.com/{GH}/blob/{a.branch}/{rel}"
@@ -223,12 +239,17 @@ def main():
         colab_blockers = []
         if local:
             colab_blockers.append(f"imports modules not on PyPI or kept beside the notebook ({', '.join(local)}); clone the repo first")
-        comp = compute_estimate(models, code)
-        gb = 2 * (comp["largest_model_b"] or 0)  # bf16 weights, about 2 GB per billion parameters
+        comp = compute_estimate(models, code, stated_gpu_gb(mds))
+        if comp.get("stated_gpu_gb"):
+            gb = comp["stated_gpu_gb"]
+            need = f"it needs about {gb} GB of GPU memory (stated in the notebook), more than"
+        else:
+            gb = 2 * (comp["largest_model_b"] or 0)  # bf16 weights, about 2 GB per billion parameters
+            need = f"the models it loads (about {gb:.0f} GB of weights in bf16) need more memory than"
         if comp["tier"] == "large-gpu":
-            colab_blockers.append(f"the models it loads (about {gb:.0f} GB of weights in bf16) exceed a free Colab GPU")
+            colab_blockers.append(f"{need} a free Colab GPU offers")
         elif gb > 13:  # a free Colab T4 has 15 GB, and activations need room too
-            colab_blockers.append(f"the models it loads (about {gb:.0f} GB of weights in bf16) need more memory than a free Colab T4 (15 GB)")
+            colab_blockers.append(f"{need} a free Colab T4 (15 GB)")
         items.append({
             "path": rel,
             "section_dir": p.parent.name,

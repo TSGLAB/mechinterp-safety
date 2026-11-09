@@ -1,7 +1,7 @@
 {
  "repo": "TSGLAB/Interpretability_Survey_Safety",
  "branch": "main",
- "commit": "9f1bea3",
+ "commit": "910a741",
  "notebooks": [
   {
    "path": "notebooks/01_core_hypotheses/01_linear_representation_hypothesis.ipynb",
@@ -40,7 +40,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/01_core_hypotheses/01_linear_representation_hypothesis.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/01_core_hypotheses/02_superposition_hypothesis.ipynb",
@@ -76,7 +78,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/01_core_hypotheses/02_superposition_hypothesis.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/01_core_hypotheses/03_privileged_access_hypothesis.ipynb",
@@ -94,15 +98,18 @@
     "meta-llama/Llama-3.1-8B"
    ],
    "compute": {
-    "tier": "gpu",
+    "tier": "large-gpu",
     "largest_model_b": 8,
-    "basis": "Estimated from the combined size of the models loaded in the code"
+    "stated_gpu_gb": 32,
+    "basis": "Stated in the notebook: about 32 GB of GPU memory"
    },
    "uses_cuda_if_available": true,
    "external": [
     "Hugging Face token"
    ],
    "imports": [
+    "dotenv",
+    "huggingface_hub",
     "model",
     "numpy",
     "torch",
@@ -110,10 +117,8 @@
     "yaml"
    ],
    "deps_missing_from_requirements": [],
-   "local_modules": [
-    "model"
-   ],
-   "cells": 16,
+   "local_modules": [],
+   "cells": 19,
    "has_saved_outputs": true,
    "preview_image": null,
    "links": {
@@ -122,17 +127,18 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/01_core_hypotheses/03_privileged_access_hypothesis.ipynb"
    },
    "colab_blockers": [
-    "imports modules not on PyPI or kept beside the notebook (model); clone the repo first",
-    "the models it loads (about 16 GB of weights in bf16) need more memory than a free Colab T4 (15 GB)"
+    "it needs about 32 GB of GPU memory (stated in the notebook), more than a free Colab GPU offers"
    ],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/02_feature_extraction/01_sparse_autoencoders_basics.ipynb",
    "section_dir": "02_feature_extraction",
    "order": 1,
    "title": "Sparse Autoencoders: Variants and Implementations",
-   "survey_reference": "Section 6.1 - Sparse Autoencoders: The Foundation",
+   "survey_reference": "Section 6.2 - Sparse Autoencoders",
    "overview": "Feature extraction identifies distributed features across neurons that correspond to coherent semantic units. Sparse autoencoders (SAEs) address polysemanticity (neurons encoding multiple features) by decomposing activations into sparse, interpretable features using an overcomplete basis ($m >> d$).",
    "key_methods": [],
    "learning_objectives": [],
@@ -153,23 +159,25 @@
    ],
    "deps_missing_from_requirements": [],
    "local_modules": [],
-   "cells": 12,
-   "has_saved_outputs": false,
-   "preview_image": null,
+   "cells": 17,
+   "has_saved_outputs": true,
+   "preview_image": "notebooks-02-feature-extraction-01-sparse-autoencoders-basics-ipynb.png",
    "links": {
     "source": "https://github.com/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/01_sparse_autoencoders_basics.ipynb",
     "colab": "https://colab.research.google.com/github/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/01_sparse_autoencoders_basics.ipynb",
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/02_feature_extraction/01_sparse_autoencoders_basics.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/02_feature_extraction/02_transcoders.ipynb",
    "section_dir": "02_feature_extraction",
    "order": 1,
    "title": "Transcoders: Bridging Nonlinear Layers",
-   "survey_reference": "Section 6.5.1 - Transcoders: Bridging Nonlinear Layers",
+   "survey_reference": "Section 6.6.1 - Transcoders: Bridging the Nonlinearities",
    "overview": "Standard Sparse Autoencoders (SAEs) excel at decomposing representations in the residual stream, where features propagate linearly. However, they struggle with **nonlinear transformations** like MLP layers and attention mechanisms.",
    "key_methods": [],
    "learning_objectives": [],
@@ -190,23 +198,25 @@
    ],
    "deps_missing_from_requirements": [],
    "local_modules": [],
-   "cells": 8,
-   "has_saved_outputs": false,
-   "preview_image": null,
+   "cells": 14,
+   "has_saved_outputs": true,
+   "preview_image": "notebooks-02-feature-extraction-02-transcoders-ipynb.png",
    "links": {
     "source": "https://github.com/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/02_transcoders.ipynb",
     "colab": "https://colab.research.google.com/github/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/02_transcoders.ipynb",
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/02_feature_extraction/02_transcoders.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/02_feature_extraction/03_crosscoders.ipynb",
    "section_dir": "02_feature_extraction",
    "order": 1,
    "title": "Crosscoders: Analyzing Cross-Layer Features",
-   "survey_reference": "Section 6.5.3 - Crosscoders: Analyzing Cross-Layer Features",
+   "survey_reference": "Section 6.6.3 - Crosscoders: Analysing Cross-Layer Features",
    "overview": "A **crosscoder** learns sparse features by reading activations from **multiple layers simultaneously**:",
    "key_methods": [],
    "learning_objectives": [],
@@ -227,23 +237,25 @@
    ],
    "deps_missing_from_requirements": [],
    "local_modules": [],
-   "cells": 4,
-   "has_saved_outputs": false,
-   "preview_image": null,
+   "cells": 8,
+   "has_saved_outputs": true,
+   "preview_image": "notebooks-02-feature-extraction-03-crosscoders-ipynb.png",
    "links": {
     "source": "https://github.com/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/03_crosscoders.ipynb",
     "colab": "https://colab.research.google.com/github/TSGLAB/Interpretability_Survey_Safety/blob/main/notebooks/02_feature_extraction/03_crosscoders.ipynb",
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/02_feature_extraction/03_crosscoders.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/03_circuits/01_circuit_discovery.ipynb",
    "section_dir": "03_circuits",
    "order": 2,
    "title": "Circuit Discovery",
-   "survey_reference": "Section 7.2 - Circuit Discovery Methods",
+   "survey_reference": "Section 7.1 - Circuit Discovery Methods",
    "overview": "**Circuits** are minimal subnetworks that implement specific behaviors. Circuit discovery aims to identify which components (attention heads, MLP neurons, features) are responsible for a particular computation. This is a minimal notebook as this field is large.",
    "key_methods": [
     "**Activation Patching:** Replace activations to measure importance of nodes",
@@ -279,7 +291,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/03_circuits/01_circuit_discovery.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/01_logit_lens.ipynb",
@@ -327,7 +341,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/01_logit_lens.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/02_tuned_lens.ipynb",
@@ -375,7 +391,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/02_tuned_lens.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/03_jacobian_lens.ipynb",
@@ -415,7 +433,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/03_jacobian_lens.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/04_patchscopes.ipynb",
@@ -460,7 +480,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/04_patchscopes.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/05_probing_classifiers.ipynb",
@@ -514,7 +536,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/05_probing_classifiers.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/06_activation_oracles.ipynb",
@@ -564,7 +588,9 @@
    "colab_blockers": [
     "the models it loads (about 16 GB of weights in bf16) need more memory than a free Colab T4 (15 GB)"
    ],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/04_intermediate_computation/07_natural_language_autoencoders.ipynb",
@@ -584,7 +610,8 @@
    "compute": {
     "tier": "large-gpu",
     "largest_model_b": 20.0,
-    "basis": "Estimated from the combined size of the models loaded in the code"
+    "stated_gpu_gb": 40,
+    "basis": "Stated in the notebook: about 40 GB of GPU memory"
    },
    "uses_cuda_if_available": true,
    "external": [
@@ -599,7 +626,7 @@
    ],
    "deps_missing_from_requirements": [],
    "local_modules": [],
-   "cells": 19,
+   "cells": 20,
    "has_saved_outputs": true,
    "preview_image": null,
    "links": {
@@ -608,16 +635,18 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/04_intermediate_computation/07_natural_language_autoencoders.ipynb"
    },
    "colab_blockers": [
-    "the models it loads (about 40 GB of weights in bf16) exceed a free Colab GPU"
+    "it needs about 40 GB of GPU memory (stated in the notebook), more than a free Colab GPU offers"
    ],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/05_representation_analysis/01_model_diffing.ipynb",
    "section_dir": "05_representation_analysis",
    "order": 4,
    "title": "Model Diffing with Crosscoders",
-   "survey_reference": "Section 11.1 — Model Diffing: Tracking Representational Changes Across Models",
+   "survey_reference": "Section 9.1 — Model Diffing: Identifying Internal Changes Across Models",
    "overview": "**Model diffing** is a class of techniques for understanding how two language models differ by analyzing their internal representations. Given a base model and a fine-tuned variant, we want to answer: *What changed? Which features are shared, and which are new or exclusive to one model?*",
    "key_methods": [],
    "learning_objectives": [
@@ -646,6 +675,7 @@
    ],
    "imports": [
     "datasets",
+    "dotenv",
     "einops",
     "huggingface_hub",
     "numpy",
@@ -664,14 +694,16 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/05_representation_analysis/01_model_diffing.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/05_representation_analysis/02_knowledge_localization.ipynb",
    "section_dir": "05_representation_analysis",
    "order": 4,
    "title": "Knowledge Localization",
-   "survey_reference": "Section 11.2 - Knowledge Localization: Where Is Information Stored?",
+   "survey_reference": "Section 9.2 - Knowledge Localisation: Where Is Information Stored?",
    "overview": "This notebook demonstrates **causal tracing**, a technique for localizing where factual knowledge is stored in transformer models. The method was introduced in \"Locating and Editing Factual Associations in GPT\".",
    "key_methods": [],
    "learning_objectives": [],
@@ -704,14 +736,16 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/05_representation_analysis/02_knowledge_localization.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/05_representation_analysis/03_representation_engineering.ipynb",
    "section_dir": "05_representation_analysis",
    "order": 4,
    "title": "Representation Engineering and Steering",
-   "survey_reference": "Section 11.3 - Representation Engineering and Steering",
+   "survey_reference": "Section 9.3 - Representation Engineering and Steering",
    "overview": "**Representation engineering** uses insights about model internals to control behavior. The key technique is **steering vectors**: adding carefully chosen vectors to activations to shift model behavior.",
    "key_methods": [],
    "learning_objectives": [],
@@ -725,7 +759,8 @@
    "compute": {
     "tier": "large-gpu",
     "largest_model_b": 13.124,
-    "basis": "Estimated from the combined size of the models loaded in the code"
+    "stated_gpu_gb": 26,
+    "basis": "Stated in the notebook: about 26 GB of GPU memory"
    },
    "uses_cuda_if_available": true,
    "external": [
@@ -734,6 +769,7 @@
    "imports": [
     "datasets",
     "dotenv",
+    "huggingface_hub",
     "matplotlib",
     "numpy",
     "sklearn",
@@ -752,17 +788,19 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/05_representation_analysis/03_representation_engineering.ipynb"
    },
    "colab_blockers": [
-    "the models it loads (about 26 GB of weights in bf16) exceed a free Colab GPU"
+    "it needs about 26 GB of GPU memory (stated in the notebook), more than a free Colab GPU offers"
    ],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/06_safety_applications/01_concept_erasure.ipynb",
    "section_dir": "06_safety_applications",
    "order": 5,
    "title": "Concept Erasure with a Real LLM (Practical Version)",
-   "survey_reference": null,
-   "overview": "This notebook is the practical real-LLM version:",
+   "survey_reference": "Section 13.2.1 - Concept Erasure via PISCES",
+   "overview": "*See also Section 13.2.2 (Knowledge Editing via Localisation) for the editing motivation.*",
    "key_methods": [],
    "learning_objectives": [],
    "models": [
@@ -793,14 +831,16 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/06_safety_applications/01_concept_erasure.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   },
   {
    "path": "notebooks/06_safety_applications/02_steering_vectors.ipynb",
    "section_dir": "06_safety_applications",
    "order": 5,
    "title": "Steering Vectors for Safety",
-   "survey_reference": "Section 13.3 - Steering and Control for AI Safety",
+   "survey_reference": "Section 13.3.1 - Steering Vectors: Practical Behavioural Control",
    "overview": "This notebook applies the workflow from `01_linear_representation_hypothesis.ipynb` to a safety setting.",
    "key_methods": [],
    "learning_objectives": [
@@ -837,7 +877,9 @@
     "raw": "https://raw.githubusercontent.com/TSGLAB/Interpretability_Survey_Safety/main/notebooks/06_safety_applications/02_steering_vectors.ipynb"
    },
    "colab_blockers": [],
-   "link_check": null
+   "link_check": {
+    "source_exists_on_github": true
+   }
   }
  ],
  "requirements": [
@@ -865,5 +907,5 @@
   "transformers",
   "tuned-lens"
  ],
- "link_check_run": false
+ "link_check_run": true
 }
