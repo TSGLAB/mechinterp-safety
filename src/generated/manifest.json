@@ -8,7 +8,7 @@
   "pdf_included": false,
   "pdf_page_offset": 0,
   "citations": "natbib labels from the compiled .bbl",
-  "generated": "2026-11-08"
+  "generated": "2026-11-10"
  },
  "toc": [
   {
@@ -618,7 +618,7 @@
    "num": "10",
    "title": "Learning Dynamics and Mechanistic Interpretability",
    "appendix": false,
-   "page": "82",
+   "page": "83",
    "sections": [
     {
      "id": "sec:ld-longitudinal",
@@ -639,7 +639,7 @@
      "num": "10.1.2",
      "title": "Feature Formation, Consolidation, and Drift",
      "level": 3,
-     "page": "83"
+     "page": "84"
     },
     {
      "id": "learning-dynamics-as-an-interpretability-tool",
@@ -1839,7 +1839,7 @@
   },
   "sec:training": {
    "num": "10",
-   "page": "82",
+   "page": "83",
    "kind": "section",
    "chapter": "learning-dynamics"
   },
@@ -1857,7 +1857,7 @@
   },
   "sec:ld-features": {
    "num": "10.1.2",
-   "page": "83",
+   "page": "84",
    "kind": "subsubsection",
    "chapter": "learning-dynamics"
   },
@@ -1875,7 +1875,7 @@
   },
   "sec:ld-temporal-stability": {
    "num": "10.2.2",
-   "page": "85",
+   "page": "86",
    "kind": "section*",
    "chapter": "learning-dynamics"
   },
